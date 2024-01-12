@@ -97,9 +97,34 @@ public class GamePanel extends JPanel implements ActionListener {
 
     public void checkApple(){
 
+
     }
 
     public void checkCollisons(){
+        //this checks if the snake hits itself head against body
+        for(int i = bodyParts;i>0;i--){
+            if((x[0] == x[i]&& y[0] == y[i])){
+                running = false;
+            }
+        }
+        //does the head of the snake touch the border
+        if(x[0]<0){
+            running = false;
+        }
+        if (x[0]>SCREEN_WIDTH){
+            running = false;
+        }
+        if(y[0] < 0){
+            running = false;
+        }
+
+        if (y[0] > SCREEN_HEIGHT){
+            running = false;
+        }
+
+        if(running == false){
+            timer.stop();
+        }
 
     }
 
@@ -121,6 +146,28 @@ public class GamePanel extends JPanel implements ActionListener {
     public class MyKeyAdapter extends KeyAdapter{
         @Override
         public void keyPressed(KeyEvent e){
+            switch(e.getKeyCode()){
+                case KeyEvent.VK_LEFT:
+                    if(direction != 'R'){
+                        direction='L';
+                        break;
+                    }
+                case KeyEvent.VK_RIGHT:
+                    if (direction!='L'){
+                        direction ='R';
+                        break;
+                    }
+                case KeyEvent.VK_UP:
+                    if(direction!='D'){
+                        direction='U';
+                        break;
+                    }
+                case KeyEvent.VK_DOWN:
+                    if(direction!='U'){
+                        direction='D';
+                        break;
+                    }
+            }
 
         }
     }
